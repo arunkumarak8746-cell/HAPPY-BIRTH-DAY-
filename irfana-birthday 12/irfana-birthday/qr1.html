@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR + PIN tools</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; background: #fff0f1; margin: 0; padding: 20px; color: #333; }
+  .card { max-width: 420px; margin: 0 auto 20px; background: #fff; border: 3px solid #333; border-radius: 16px; padding: 20px; box-shadow: 6px 6px 0 #FF7882; }
+  h2 { margin: 0 0 12px; color: #FF7882; }
+  input { width: 100%; box-sizing: border-box; padding: 10px; font-size: 1rem; border: 2px solid #333; border-radius: 10px; }
+  button { margin-top: 10px; padding: 10px 16px; font-size: 1rem; font-weight: 600; background: #FF7882; color: #fff; border: 2px solid #333; border-radius: 10px; cursor: pointer; }
+  #qr { margin-top: 16px; display: flex; justify-content: center; }
+  code { word-break: break-all; display: block; margin-top: 12px; background: #f6f6f6; padding: 8px; border-radius: 8px; font-size: .8rem; }
+  small { color: #666; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>1. QR code</h2>
+    <small>Paste the web address where you hosted the birthday page.</small>
+    <input id="url" placeholder="https://your-site.example.com/" inputmode="url">
+    <button id="mk">Make QR</button>
+    <div id="qr"></div>
+    <small id="hint"></small>
+  </div>
+
+  <div class="card">
+    <h2>2. Change the PIN</h2>
+    <small>Type a new PIN, copy the hash, and paste it as <b>PIN_HASH</b> in index.html.</small>
+    <input id="pin" placeholder="New PIN" inputmode="numeric">
+    <button id="hs">Get hash</button>
+    <code id="hash"></code>
+  </div>
+
+<script>
+  var box = document.getElementById('qr'), hint = document.getElementById('hint');
+  document.getElementById('mk').onclick = function () {
+    var u = document.getElementById('url').value.trim();
+    if (!/^https?:\/\//i.test(u)) { hint.textContent = 'Enter a full address starting with https://'; return; }
+    box.innerHTML = '';
+    new QRCode(box, { text: u, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.M });
+    hint.textContent = 'Right-click or long-press the QR to save it. Scan it with a phone camera to test.';
+  };
+  document.getElementById('hs').onclick = function () {
+    var p = document.getElementById('pin').value.trim();
+    if (!p) return;
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(p)).then(function (b) {
+      document.getElementById('hash').textContent = Array.prototype.map.call(new Uint8Array(b), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+    });
+  };
+</script>
+</body>
+</html>

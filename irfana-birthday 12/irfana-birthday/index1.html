@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Happy Birthday Website 2.0 | Aoudumber Bade">
+    <meta name="github" content="https://github.com/Aoudumber-Bade">
+    <title>Irfana Arsh Birthday</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        // PIN gate: hide the page until the PIN has been entered in this tab
+        try { if (sessionStorage.getItem('pinOk') !== '1') document.documentElement.classList.add('locked'); }
+        catch (e) { document.documentElement.classList.add('locked'); }
+    </script>
+    <style>
+        .locked #wrapper, .locked #cakeScene, .locked #slideshow, .locked #musicBtn { display: none !important; }
+        #pinGate { display: none; position: fixed; inset: 0; z-index: 99999; align-items: center; justify-content: center;
+            background: linear-gradient(160deg, #fff0f1, #ffd9dc); font-family: 'Poppins', sans-serif; padding: 16px; }
+        .locked #pinGate { display: flex; }
+        .pin__box { background: #fff; border: 4px solid #333; border-radius: 22px; padding: 28px 24px; width: 100%;
+            max-width: 340px; text-align: center; box-shadow: 8px 8px 0 #FF7882; }
+        .pin__box h2 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: #FF7882; margin: 0 0 6px; }
+        .pin__box p { margin: 0 0 18px; color: #555; font-size: .9rem; }
+        .pin__box input { width: 100%; box-sizing: border-box; text-align: center; font-size: 1.6rem; letter-spacing: .6rem;
+            padding: 10px; border: 3px solid #333; border-radius: 12px; outline: none; }
+        .pin__box input:focus { border-color: #FF7882; }
+        .pin__box button { margin-top: 14px; width: 100%; padding: 12px; font-size: 1rem; font-weight: 600; cursor: pointer;
+            background: #FF7882; color: #fff; border: 3px solid #333; border-radius: 12px; }
+        .pin__err { min-height: 1.2em; margin-top: 10px; color: #d62839; font-size: .85rem; }
+        .pin__box.shake { animation: pinShake .35s; }
+        @keyframes pinShake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+    </style>
+</head>
+
+<body>
+    <div id="pinGate">
+        <form class="pin__box" id="pinBox" autocomplete="off">
+            <h2>A surprise for you 💖</h2>
+            <p>Enter the PIN to open</p>
+            <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••" aria-label="PIN">
+            <button type="submit">Open</button>
+            <div class="pin__err" id="pinErr"></div>
+        </form>
+    </div>
+    <script>
+        (function () {
+            // To change the PIN: open qr.html, use "Change the PIN", and paste the new hash here. Current PIN: 2111
+            var PIN_HASH = 'f5095cd644fbe157a3ebc71d3e3212530f58e6d8a88c400c811314f217278c59'; // SHA-256 of the PIN
+            function sha256(str) {
+                return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+                    return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+                });
+            }
+            var box = document.getElementById('pinBox'), input = document.getElementById('pinInput'), err = document.getElementById('pinErr');
+            box.addEventListener('submit', function (e) {
+                e.preventDefault();
+                sha256(input.value.trim()).then(function (h) {
+                    if (h === PIN_HASH) {
+                        try { sessionStorage.setItem('pinOk', '1'); } catch (x) {}
+                        location.reload(); // reload so the intro animations start fresh
+                    } else {
+                        err.textContent = 'Wrong PIN, try again';
+                        input.value = '';
+                        box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+                    }
+                });
+            });
+            if (document.documentElement.classList.contains('locked')) setTimeout(function () { input.focus(); }, 100);
+        })();
+    </script>
+    <div id="wrapper">
+        <div class="flag__birthday">
+            <img src="./images/1.png" alt="" width="350" class="flag__left">
+            <img src="./images/1.png" alt="" width="350" class="flag__right">
+        </div>
+        <div class="content">
+            <div class="left">
+                <div class="title">
+                    <h1 class="happy">
+                        <span style="--t: 4s;">H</span>
+                        <span style="--t: 4.2s;">a</span>
+                        <span style="--t: 4.4s;">p</span>
+                        <span style="--t: 4.6s;">p</span>
+                        <span style="--t: 4.8s;">y</span>
+                    </h1>
+                    <h1 class="birthday">
+                        <span style="--t: 5s;">B</span>
+                        <span style="--t: 5.2s;">i</span>
+                        <span style="--t: 5.4s;">r</span>
+                        <span style="--t: 5.6s;">t</span>
+                        <span style="--t: 5.8s;">h</span>
+                        <span style="--t: 6s;">d</span>
+                        <span style="--t: 6.2s;">a</span>
+                        <span style="--t: 6.4s;">y</span>
+                    </h1>
+                    <div class="hat">
+                        <img src="./images/hat.png" alt="" width="130">
+                    </div>
+                </div>
+                <div class="date__of__birth">
+                    <span></span>
+                </div>
+                <div class="btn">
+                    <button id="btn__letter">
+                        <div class="mail">
+                            Click Here Irfana Arsh
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                    </button>
+                    <button id="btn__cake">
+                        Cut the Cake <i class="fa-solid fa-cake-candles"></i>
+                    </button>
+
+                </div>
+            </div>
+            <div class="right">
+                <div class="box__account">
+                    <div class="image">
+                        <img src="./images/unnamed.png" alt="">
+                    </div>
+                    <div class="name">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Dear Rep Amma Irfana Arsh</span>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="balloon_one">
+                        <img width="100px" src="./images/balloon1.png" alt="">
+                    </div>
+                    <div class="balloon_two">
+                        <img width="100px" src="./images/balloon2.png" alt="">
+                    </div>
+                </div>
+                <div class="cricle">
+                    <div class="text__cricle">
+                        <span style="--i: 1;">h</span>
+                        <span style="--i: 2;">a</span>
+                        <span style="--i: 3;">p</span>
+                        <span style="--i: 4;">p</span>
+                        <span style="--i: 5;">y</span>
+                        <span style="--i: 6;">-</span>
+                        <span style="--i: 7;">b</span>
+                        <span style="--i: 8;">i</span>
+                        <span style="--i: 9;">r</span>
+                        <span style="--i: 10;">t</span>
+                        <span style="--i: 11;">h</span>
+                        <span style="--i: 12;">d</span>
+                        <span style="--i: 13;">a</span>
+                        <span style="--i: 14;">y</span>
+                        <span style="--i: 15;">-</span>
+                    </div>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        <div class="decorate_star star1" style="--t: 15s;"></div>
+        <div class="decorate_star star2" style="--t: 15.2s;"></div>
+        <div class="decorate_star star3" style="--t: 15.4s;"></div>
+        <div class="decorate_star star4" style="--t: 15.6s;"></div>
+        <div class="decorate_star star5" style="--t: 15.8s;"></div>
+        <div class="decorate_flower--one" style="--t: 15s;">
+            <img width="20" src="./images/decorate_flower.png" alt="">
+        </div>
+        <div class="decorate_flower--two" style="--t: 15.3s;">
+            <img width="20" src="./images/decorate_flower.png" alt="">
+        </div>
+        <div class="decorate_flower--three" style="--t: 15.6s;">
+            <img width="20" src="./images/decorate_flower.png" alt="">
+        </div>
+        <div class="decorate_bottom">
+            <img src="./images/decorate.png" alt="" width="100">
+        </div>
+        <div class="smiley__icon">
+            <img src="./images/smiley_icon.png" alt="" width="100">
+            <img class="smiley__cap" src="./images/hat.png" alt="" width="58">
+        </div>
+
+        <!-- extra decorations -->
+        <div class="decorate_star star6" style="--t: 16s;"></div>
+        <div class="decorate_star star7" style="--t: 16.2s;"></div>
+        <div class="decorate_star star8" style="--t: 16.4s;"></div>
+        <div class="decorate_star star9" style="--t: 16.6s;"></div>
+        <div class="decorate_star star10" style="--t: 16.8s;"></div>
+
+        <div class="balloon_three">
+            <img width="70" src="./images/balloon2.png" alt="">
+        </div>
+        <div class="balloon_four">
+            <img width="60" src="./images/balloon1.png" alt="">
+        </div>
+
+        <div class="float_heart" style="--x: 6%;  --s: 18px; --d: 11s; --delay: 17s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 20%; --s: 26px; --d: 14s; --delay: 20s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 36%; --s: 16px; --d: 10s; --delay: 18s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 52%; --s: 22px; --d: 13s; --delay: 22s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 68%; --s: 18px; --d: 12s; --delay: 19s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 82%; --s: 28px; --d: 15s; --delay: 21s;"><i class="fa-solid fa-heart"></i></div>
+        <div class="float_heart" style="--x: 94%; --s: 20px; --d: 11s; --delay: 23s;"><i class="fa-solid fa-heart"></i></div>
+
+        <div class="dot" style="--x: 12%; --y: 30%; --c: #FF7882; --t: 16s;"></div>
+        <div class="dot" style="--x: 30%; --y: 18%; --c: #333;    --t: 16.3s;"></div>
+        <div class="dot" style="--x: 44%; --y: 72%; --c: #FF7882; --t: 16.6s;"></div>
+        <div class="dot" style="--x: 58%; --y: 10%; --c: #ffb3b8; --t: 16.9s;"></div>
+        <div class="dot" style="--x: 72%; --y: 88%; --c: #333;    --t: 17.2s;"></div>
+        <div class="dot" style="--x: 90%; --y: 45%; --c: #FF7882; --t: 17.5s;"></div>
+        <div class="dot" style="--x: 4%;  --y: 62%; --c: #ffb3b8; --t: 17.8s;"></div>
+        <div class="dot" style="--x: 64%; --y: 30%; --c: #333;    --t: 18.1s;"></div>
+
+        <!-- decorations using the extra images -->
+        <div class="flag__top">
+            <img src="./images/1.png" alt="" width="300">
+        </div>
+        <div class="decorate_bottom_left">
+            <img src="./images/decorate.png" alt="" width="100">
+        </div>
+        <div class="cat__decor">
+            <img src="./images/mewmew.gif" alt="" width="130">
+        </div>
+        <div class="love__decor">
+            <img src="./images/love.png" alt="" width="85">
+        </div>
+        <div class="decorate_flower--more" style="--top: 12%; --left: 33%; --t: 17s;"><img width="20" src="./images/decorate_flower.png" alt=""></div>
+        <div class="decorate_flower--more" style="--top: 52%; --left: 2%;  --t: 17.3s;"><img width="22" src="./images/decorate_flower.png" alt=""></div>
+        <div class="decorate_flower--more" style="--top: 80%; --left: 52%; --t: 17.6s;"><img width="18" src="./images/decorate_flower.png" alt=""></div>
+        <div class="decorate_flower--more" style="--top: 36%; --left: 93%; --t: 17.9s;"><img width="20" src="./images/decorate_flower.png" alt=""></div>
+        <div class="decorate_flower--more" style="--top: 74%; --left: 40%; --t: 18.2s;"><img width="16" src="./images/decorate_flower.png" alt=""></div>
+
+        <div class="float_heart float_img" style="--x: 14%; --s: 26px; --d: 12s; --delay: 18.5s;"><img src="./images/heart.png" alt=""></div>
+        <div class="float_heart float_img" style="--x: 45%; --s: 30px; --d: 14s; --delay: 21s;"><img src="./images/heart.png" alt=""></div>
+        <div class="float_heart float_img" style="--x: 76%; --s: 24px; --d: 13s; --delay: 19.5s;"><img src="./images/heart.png" alt=""></div>
+        <div class="float_heart float_img" style="--x: 88%; --s: 32px; --d: 15s; --delay: 24s;"><img src="./images/heart.png" alt=""></div>
+
+
+        <div class="boxMail">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="boxMail-container">
+                <div class="card1">
+                    <div class="userImg">
+                        <img src="images/unnamed.png" alt="">
+                    </div>
+                    <h4 class="username">To: Irfana Arsh 💖<span class="underline"></span></h4>
+
+                    <h3>Happy Birthday</h3>
+                    <div class="imageCute">
+                        <img src="cute1.png" alt="">
+                    </div>
+                </div>
+                <div class="card2">
+                    <div class="card2-content">
+                        <h3>To Rep Amma 🐦‍🔥!</h3>
+                        <h2>Happy birthday 🥳🎂🥳 chanda the day you come into my life I was not really much attached to
+                            you but day by day you became close to my heart . And now you are truly my younger sister. I
+                            wish I could remove some of the pain from your life which you are bearing alone. But you're
+                            always welcome 🤗 you can talk anytime you want to talk specially those which you can't say
+                            to others. And this year your all dreams come true . I wish that your
+                            brother could wish you but if couldn't wish on him behalf I am wishing you happy birthday
+                            🎈🎂🎈 sana . Don't be Sad ok be happy 😌
+                        </h2>
+
+                        <div class="photos">
+                            <img src="./images/photo1.png" alt="">
+                            <img src="./images/photo2.png" alt="">
+                            <img src="./images/photo3.png" alt="">
+                        </div>
+
+                        <div class="imageCute2">
+                            <img src="cute2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- cake cutting scene -->
+    <div class="cakeScene" id="cakeScene" aria-hidden="true">
+        <div class="cake__panel">
+            <div class="cake__close" id="cakeClose" title="Close"><i class="fa-solid fa-xmark"></i></div>
+            <h2 class="cake__title">Happy Birthday <span>Irfana Arsh</span> <i class="fa-solid fa-heart"></i></h2>
+
+            <svg class="cake__svg" id="cakeSvg" viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <g id="cakeBody">
+                        <!-- bottom tier -->
+                        <rect x="55" y="190" width="290" height="100" rx="12" fill="#FF7882" stroke="#333" stroke-width="5"/>
+                        <path d="M55 205 Q55 190 70 190 H330 Q345 190 345 205 V211 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 q-14.5 20 -29 0 Z" fill="#fff8e4" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="85" cy="262" r="3.5" fill="#fff"/><circle cx="130" cy="262" r="3.5" fill="#fff"/><circle cx="175" cy="262" r="3.5" fill="#fff"/><circle cx="225" cy="262" r="3.5" fill="#fff"/><circle cx="270" cy="262" r="3.5" fill="#fff"/><circle cx="315" cy="262" r="3.5" fill="#fff"/>
+                        <!-- top tier -->
+                        <rect x="105" y="125" width="190" height="72" rx="12" fill="#ffb3b8" stroke="#333" stroke-width="5"/>
+                        <path d="M105 140 Q105 125 120 125 H280 Q295 125 295 140 V146 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 q-11.9 18 -23.75 0 Z" fill="#fff8e4" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                        <circle cx="135" cy="180" r="3.5" fill="#fff"/><circle cx="175" cy="180" r="3.5" fill="#fff"/><circle cx="225" cy="180" r="3.5" fill="#fff"/><circle cx="265" cy="180" r="3.5" fill="#fff"/>
+                    </g>
+                    <clipPath id="clipL"><rect x="0" y="0" width="200" height="340"/></clipPath>
+                    <clipPath id="clipR"><rect x="200" y="0" width="200" height="340"/></clipPath>
+                </defs>
+
+                <!-- plate -->
+                <ellipse cx="200" cy="294" rx="178" ry="24" fill="#fff" stroke="#333" stroke-width="5"/>
+                <ellipse cx="200" cy="294" rx="140" ry="15" fill="none" stroke="#DACCBF" stroke-width="3"/>
+
+                <!-- inside of the cake, shown when the halves part -->
+                <g class="cake__inside">
+                    <rect x="172" y="125" width="56" height="72" fill="#ffe0a3" stroke="#333" stroke-width="4"/>
+                    <rect x="172" y="190" width="56" height="100" fill="#ffe0a3" stroke="#333" stroke-width="4"/>
+                    <rect x="174" y="150" width="52" height="9" fill="#FF7882"/>
+                    <rect x="174" y="168" width="52" height="6" fill="#fff8e4"/>
+                    <rect x="174" y="224" width="52" height="11" fill="#FF7882"/>
+                    <rect x="174" y="252" width="52" height="7" fill="#fff8e4"/>
+                    <rect x="174" y="272" width="52" height="9" fill="#FF7882"/>
+                </g>
+
+                <g class="half half--left" clip-path="url(#clipL)"><use href="#cakeBody"/></g>
+                <g class="half half--right" clip-path="url(#clipR)"><use href="#cakeBody"/></g>
+
+                <!-- candles -->
+                <g class="candles">
+                    <g class="candle" transform="translate(150 0)">
+                        <rect x="-6" y="88" width="12" height="38" rx="3" fill="#fff" stroke="#333" stroke-width="3"/>
+                        <rect x="-6" y="98" width="12" height="6" fill="#FF7882"/>
+                        <rect x="-6" y="110" width="12" height="6" fill="#FF7882"/>
+                        <g transform="translate(0 84)"><g class="flame">
+                            <path d="M0 -1 C-10 -13 -5 -25 0 -34 C5 -25 10 -13 0 -1 Z" fill="#ffb703" stroke="#333" stroke-width="2.5"/>
+                            <path d="M0 -3 C-4 -9 -2 -15 0 -19 C2 -15 4 -9 0 -3 Z" fill="#fff3b0"/>
+                        </g></g>
+                        <circle class="smoke" cx="0" cy="70" r="5" fill="#cfd8dc"/>
+                        <circle class="smoke s2" cx="3" cy="66" r="4" fill="#cfd8dc"/>
+                    </g>
+                    <g class="candle" transform="translate(200 0)">
+                        <rect x="-6" y="88" width="12" height="38" rx="3" fill="#fff" stroke="#333" stroke-width="3"/>
+                        <rect x="-6" y="98" width="12" height="6" fill="#FF7882"/>
+                        <rect x="-6" y="110" width="12" height="6" fill="#FF7882"/>
+                        <g transform="translate(0 84)"><g class="flame">
+                            <path d="M0 -1 C-10 -13 -5 -25 0 -34 C5 -25 10 -13 0 -1 Z" fill="#ffb703" stroke="#333" stroke-width="2.5"/>
+                            <path d="M0 -3 C-4 -9 -2 -15 0 -19 C2 -15 4 -9 0 -3 Z" fill="#fff3b0"/>
+                        </g></g>
+                        <circle class="smoke" cx="0" cy="70" r="5" fill="#cfd8dc"/>
+                        <circle class="smoke s2" cx="3" cy="66" r="4" fill="#cfd8dc"/>
+                    </g>
+                    <g class="candle" transform="translate(250 0)">
+                        <rect x="-6" y="88" width="12" height="38" rx="3" fill="#fff" stroke="#333" stroke-width="3"/>
+                        <rect x="-6" y="98" width="12" height="6" fill="#FF7882"/>
+                        <rect x="-6" y="110" width="12" height="6" fill="#FF7882"/>
+                        <g transform="translate(0 84)"><g class="flame">
+                            <path d="M0 -1 C-10 -13 -5 -25 0 -34 C5 -25 10 -13 0 -1 Z" fill="#ffb703" stroke="#333" stroke-width="2.5"/>
+                            <path d="M0 -3 C-4 -9 -2 -15 0 -19 C2 -15 4 -9 0 -3 Z" fill="#fff3b0"/>
+                        </g></g>
+                        <circle class="smoke" cx="0" cy="70" r="5" fill="#cfd8dc"/>
+                        <circle class="smoke s2" cx="3" cy="66" r="4" fill="#cfd8dc"/>
+                    </g>
+                </g>
+
+                <!-- knife -->
+                <g class="knife">
+                    <path d="M195 30 H205 V196 L195 206 Z" fill="#dfe6ec" stroke="#333" stroke-width="3" stroke-linejoin="round"/>
+                    <rect x="190" y="-30" width="20" height="62" rx="8" fill="#333"/>
+                </g>
+            </svg>
+
+            <p class="cake__msg" id="cakeMsg">Make a wish, then blow the candles</p>
+            <button id="cakeAction" class="cake__btn">Blow the candles</button>
+            <button id="cakeSlidesBtn" class="cake__btn cake__btn--slides">See photos <i class="fa-solid fa-images"></i></button>
+            <div class="confetti" id="confetti"></div>
+        </div>
+    </div>
+
+    <!-- photo slideshow after the cake is cut -->
+    <div class="slideshow" id="slideshow" aria-hidden="true">
+        <div class="slideshow__close" id="slidesClose" title="Close"><i class="fa-solid fa-xmark"></i></div>
+        <div class="slideshow__frame">
+            <div class="slideshow__stage" id="slidesStage">
+                <div class="slide" style="--bg: url('./images/slide1.png')"><img src="./images/slide1.png" alt=""></div>
+                <div class="slide" style="--bg: url('./images/slide2.png')"><img src="./images/slide2.png" alt=""></div>
+                <div class="slide" style="--bg: url('./images/slide3.png')"><img src="./images/slide3.png" alt=""></div>
+                <div class="slide" style="--bg: url('./images/slide4.png')"><img src="./images/slide4.png" alt=""></div>
+                <div class="slide" style="--bg: url('./images/slide5.png')"><img src="./images/slide5.png" alt=""></div>
+            </div>
+            <button class="slideshow__nav slideshow__prev" id="slidesPrev" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="slideshow__nav slideshow__next" id="slidesNext" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="slideshow__dots" id="slidesDots"></div>
+        <p class="slideshow__caption">Happy Birthday Dear sister Irfana Arsh 💫❤️ <i class="fa-solid fa-heart"></i></p>
+    </div>
+
+    <!-- background song -->
+    <audio id="bgSong" src="./music/song.mp3" loop preload="auto"></audio>
+    <button id="musicBtn" title="Play / pause song" aria-label="Play or pause song">
+        <i class="fa-solid fa-music"></i>
+    </button>
+    <script>
+        // ---------- background song (own script block, so nothing else can break it) ----------
+        (function () {
+            var song = document.getElementById('bgSong');
+            var btn = document.getElementById('musicBtn');
+            var icon = btn.querySelector('i');
+            var userPaused = false;
+            song.volume = 0.8;
+
+            function setState(playing) {
+                btn.classList.toggle('playing', playing);
+                icon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-music';
+            }
+            function start() {
+                var p = song.play();
+                if (p && p.then) {
+                    p.then(function () { setState(true); }).catch(function () { setState(false); });
+                }
+            }
+
+            // if the file is missing, say so instead of failing silently
+            song.addEventListener('error', function () {
+                btn.title = 'Song not found: put song.mp3 inside the music folder';
+                var note = document.createElement('div');
+                note.className = 'music__note';
+                note.textContent = 'Song not found - put song.mp3 inside the "music" folder next to index.html';
+                document.body.appendChild(note);
+                setTimeout(function () { note.remove(); }, 8000);
+            });
+
+            // browsers block sound until the visitor interacts, so try now and
+            // again on the first click / touch / key press anywhere on the page
+            start();
+            var unlock = function () {
+                if (song.paused && !userPaused) start();
+                document.removeEventListener('click', unlock, true);
+                document.removeEventListener('touchstart', unlock, true);
+                document.removeEventListener('keydown', unlock, true);
+            };
+            document.addEventListener('click', unlock, true);
+            document.addEventListener('touchstart', unlock, true);
+            document.addEventListener('keydown', unlock, true);
+
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (song.paused) {
+                    userPaused = false;
+                    start();
+                } else {
+                    userPaused = true;
+                    song.pause();
+                    setState(false);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // ---------- cake cutting (own script block) ----------
+        (function () {
+            var scene = document.getElementById('cakeScene');
+            var openBtn = document.getElementById('btn__cake');
+            var closeBtn = document.getElementById('cakeClose');
+            var actionBtn = document.getElementById('cakeAction');
+            var msg = document.getElementById('cakeMsg');
+            var svg = document.getElementById('cakeSvg');
+            var confetti = document.getElementById('confetti');
+            var stage = 0;      // 0 = candles lit, 1 = blown out, 2 = cut
+            var timers = [];
+
+            function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+            function reset() {
+                timers.forEach(clearTimeout);
+                timers = [];
+                scene.classList.remove('is-blown', 'is-cutting', 'is-cut');
+                confetti.innerHTML = '';
+                stage = 0;
+                msg.textContent = 'Make a wish, then blow the candles';
+                actionBtn.textContent = 'Blow the candles';
+                actionBtn.disabled = false;
+            }
+
+            function burst() {
+                var colors = ['#FF7882', '#ffb3b8', '#ffd166', '#06d6a0', '#4cc9f0', '#333', '#fff'];
+                for (var i = 0; i < 70; i++) {
+                    var c = document.createElement('i');
+                    c.style.left = Math.random() * 100 + '%';
+                    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    c.style.width = (6 + Math.random() * 8) + 'px';
+                    c.style.height = (8 + Math.random() * 10) + 'px';
+                    c.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+                    c.style.animationDelay = (Math.random() * 0.8) + 's';
+                    confetti.appendChild(c);
+                }
+            }
+
+            function next() {
+                if (stage === 0) {
+                    scene.classList.add('is-blown');
+                    msg.textContent = 'Wish made! Now let\'s cut the cake';
+                    actionBtn.textContent = 'Cut the cake';
+                    stage = 1;
+                } else if (stage === 1) {
+                    actionBtn.disabled = true;
+                    scene.classList.add('is-cutting');
+                    later(function () {
+                        scene.classList.add('is-cut');
+                        msg.textContent = 'Happy Birthday Rep Amma Irfana Arsh🎂! Have a sweet year🤞';
+                        burst();
+                    }, 900);
+                    later(function () {
+                        actionBtn.textContent = 'Play again';
+                        actionBtn.disabled = false;
+                        stage = 2;
+                    }, 1800);
+                } else {
+                    reset();
+                }
+            }
+
+            openBtn.addEventListener('click', function () {
+                reset();
+                scene.classList.add('open');
+            });
+            closeBtn.addEventListener('click', function () {
+                scene.classList.remove('open');
+                reset();
+            });
+            actionBtn.addEventListener('click', next);
+            svg.addEventListener('click', function () { if (stage === 0) next(); });
+        })();
+    </script>
+
+    <script>
+        // ---------- photo slideshow after the cake is cut (own script block) ----------
+        (function () {
+            var scene = document.getElementById('cakeScene');
+            var show = document.getElementById('slideshow');
+            var slides = Array.prototype.slice.call(document.querySelectorAll('#slidesStage .slide'));
+            var dotsBox = document.getElementById('slidesDots');
+            var seeBtn = document.getElementById('cakeSlidesBtn');
+            var index = 0, timer = null, openTimer = null;
+            var DELAY = 3800;
+
+            var dots = slides.map(function (_, i) {
+                var d = document.createElement('button');
+                d.setAttribute('aria-label', 'Photo ' + (i + 1));
+                d.addEventListener('click', function () { go(i); restart(); });
+                dotsBox.appendChild(d);
+                return d;
+            });
+
+            function go(i) {
+                index = (i + slides.length) % slides.length;
+                slides.forEach(function (s, k) { s.classList.toggle('active', k === index); });
+                dots.forEach(function (d, k) { d.classList.toggle('active', k === index); });
+            }
+            function restart() { clearInterval(timer); timer = setInterval(function () { go(index + 1); }, DELAY); }
+
+            function open() {
+                go(0);
+                show.classList.add('open');
+                restart();
+            }
+            function close() {
+                show.classList.remove('open');
+                clearInterval(timer);
+                clearTimeout(openTimer);
+            }
+
+            document.getElementById('slidesNext').addEventListener('click', function () { go(index + 1); restart(); });
+            document.getElementById('slidesPrev').addEventListener('click', function () { go(index - 1); restart(); });
+            document.getElementById('slidesClose').addEventListener('click', close);
+            seeBtn.addEventListener('click', open);
+            document.addEventListener('keydown', function (e) {
+                if (!show.classList.contains('open')) return;
+                if (e.key === 'Escape') close();
+                if (e.key === 'ArrowRight') { go(index + 1); restart(); }
+                if (e.key === 'ArrowLeft') { go(index - 1); restart(); }
+            });
+
+            // swipe on phones
+            var x0 = null;
+            show.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+            show.addEventListener('touchend', function (e) {
+                if (x0 === null) return;
+                var dx = e.changedTouches[0].clientX - x0;
+                if (Math.abs(dx) > 40) { go(index + (dx < 0 ? 1 : -1)); restart(); }
+                x0 = null;
+            });
+
+            // watch the cake scene: open the slides a moment after the cut, close when it resets
+            var wasCut = false;
+            new MutationObserver(function () {
+                var cut = scene.classList.contains('is-cut');
+                if (cut && !wasCut) {
+                    clearTimeout(openTimer);
+                    openTimer = setTimeout(open, 3500);
+                } else if (!cut && wasCut) {
+                    close();
+                }
+                wasCut = cut;
+            }).observe(scene, { attributes: true, attributeFilter: ['class'] });
+
+            // closing the cake window also closes the slides
+            document.getElementById('cakeClose').addEventListener('click', close);
+        })();
+    </script>
+
+</body>
+<script>
+    let datetxt = "21 Nov";
+    let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
+    let titleLetter = "To you";
+    let charArrDate = datetxt.split('');
+    let charArrDateLetter = datatxtletter.split('');
+    let charArrTitle = titleLetter.split('');
+    let currentIndex = 0;
+    let currentIndexLetter = 0;
+    let currentIndexTitle = 0;
+    let date__of__birth = document.querySelector(".date__of__birth span");
+    let text__letter = document.querySelector(".text__letter p");
+    setTimeout(function () {
+        timeDatetxt = setInterval(function () {
+            if (currentIndex < charArrDate.length) {
+                date__of__birth.textContent += charArrDate[currentIndex];
+                currentIndex++;
+            }
+            else {
+                let i = document.createElement("i");
+                i.className = "fa-solid fa-star"
+                document.querySelector(".date__of__birth").prepend(i)
+                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
+                clearInterval(timeDatetxt)
+            }
+        }, 100)
+    }, 12000)
+
+    var intervalContent;
+    var intervalTitle;
+    $("#btn__letter").on("click", function () {
+        $(".box__letter").slideDown()
+        setTimeout(function () {
+            $(".letter__border").slideDown();
+        }, 1000)
+        setTimeout(function () {
+            intervalTitle = setInterval(function () {
+                if (currentIndexTitle < charArrTitle.length) {
+                    document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                    let i = document.createElement("i");
+                    i.className = "fa-solid fa-heart"
+                    document.querySelector(".title__letter").appendChild(i)
+                    currentIndexTitle++;
+                }
+                else {
+                    clearInterval(intervalTitle)
+                }
+            }, 100)
+        }, 2000)
+        setTimeout(function () {
+            document.querySelector("#heart__letter").classList.add("animationOp");
+            document.querySelector(".love__img").classList.add("animationOp");
+            document.querySelector("#mewmew").classList.add("animationOp");
+        }, 2800)
+        setTimeout(function () {
+            document.querySelectorAll(".heart").forEach((item) => {
+                item.classList.add("animation")
+            })
+        }, 3500)
+        setTimeout(function () {
+            intervalContent = setInterval(function () {
+                if (currentIndexLetter < charArrDateLetter.length) {
+                    text__letter.textContent += charArrDateLetter[currentIndexLetter];
+                    currentIndexLetter++;
+                }
+                else {
+                    clearInterval(intervalContent)
+                }
+            }, 50)
+        }, 6000)
+    })
+    $(".close").on("click", function () {
+        clearInterval(intervalContent)
+        document.querySelector(".title__letter").textContent = "";
+        text__letter.textContent = "";
+        currentIndexLetter = 0
+        currentIndexTitle = 0
+        document.querySelector("#heart__letter").classList.remove("animationOp");
+        document.querySelector(".love__img").classList.remove("animationOp");
+        document.querySelector("#mewmew").classList.remove("animationOp");
+        document.querySelectorAll(".heart").forEach((item) => {
+            item.classList.remove("animation")
+        })
+        $(".box__letter").slideUp();
+        $(".letter__border").slideUp();
+    })
+
+
+
+    let mailBox = document.querySelector('.mail')
+    let boxmail = document.querySelector('.boxMail')
+    var close = document.querySelector('.fa-xmark')
+    mailBox.onclick = function () {
+        mailBox.classList.toggle('active')
+        boxmail.classList.add('active')
+    }
+
+    close.addEventListener('click', function () {
+        boxmail.classList.remove('active')
+    })
+
+</script>
+
+</html>
